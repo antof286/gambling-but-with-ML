@@ -20,14 +20,14 @@ SEQ_LEN = 20
 INPUT_DIM = 2
 HIDDEN_DIM = 64
 LATENT_DIM = 16
-EPOCHS = 10000
+EPOCHS = 3000
 BATCH_SIZE = 64
 LR = 1e-3
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
 
-X_train, scaler, _ = fetch_and_prepare_data("^GSPC", "2024-05-01", "2025-05-01", SEQ_LEN)
+X_train, scaler, _ = fetch_and_prepare_data("^GSPC", "2015-05-01", "2025-05-01", SEQ_LEN)
 dataset = TensorDataset(X_train)
 dataloader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True)
 
