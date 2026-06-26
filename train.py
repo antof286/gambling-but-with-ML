@@ -1,10 +1,17 @@
 import torch
+import numpy as np
 from torch.utils.data import DataLoader, TensorDataset
 import torch.optim as optim
 import pickle
 import os
 from models.vae_model import TradingVAE, loss_function
 from utils.data_loader import fetch_and_prepare_data
+import random
+
+SEED = 1
+torch.manual_seed(SEED)
+np.random.seed(SEED)
+random.seed(SEED)
 
 SEQ_LEN = 20
 INPUT_DIM = 2

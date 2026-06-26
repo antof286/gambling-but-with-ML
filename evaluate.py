@@ -5,6 +5,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from models.vae_model import TradingVAE, loss_function
 from utils.data_loader import fetch_and_prepare_data
+import random
+
+SEED = 1
+torch.manual_seed(SEED)
+np.random.seed(SEED)
+random.seed(SEED)
 
 SEQ_LEN = 20
 INPUT_DIM = 2
@@ -23,7 +29,7 @@ model.eval()
 with torch.no_grad():
     recon_data, mu, logvar = model(X_test)
     test_loss = loss_function(recon_data, X_test, mu, logvar)
-    
+
     z_random = torch.randn(len(X_test), LATENT_DIM)
     generated_data = model.decode(z_random)
 
@@ -33,8 +39,8 @@ real_returns = X_test[:, -1, 0].numpy()
 gen_returns = generated_data[:, -1, 0].numpy()
 
 plt.figure(figsize=(10, 6))
-sns.kdeplot(real_returns, fill=True, color="green", label="Real distribution")
-sns.kdeplot(gen_returns, fill=True, color="red", label="Generated distribution")
+sns.kdeplot(real_returns, fill=True, color="green", label="Real Distribution")
+sns.kdeplot(gen_returns, fill=True, color="red", label="Generated Distribution")
 plt.title("Out-of-Sample VAE Evaluation")
 plt.xlabel("Scaled Log Return")
 plt.ylabel("Density")
